@@ -17,28 +17,27 @@ public class ParticipantService {
 
     private final ParticipantRepository participantRepository;
 
-    public List<Participant> getParticipants(){
+    public List<Participant> getParticipants() {
         return participantRepository.findAll();
     }
 
     public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
 
-       boolean exists = participantRepository.findByLogin(participant.getLogin()).isEmpty();
-        if(exists) {
+        boolean exists = participantRepository.findByLogin(participant.getLogin()).isEmpty();
+        if (exists) {
             try {
                 Participant _participant = participantRepository
                         .save(new Participant(participant.getLogin(), participant.getEmail()));
                 return new ResponseEntity<>(_participant, HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
             }
-        }else{
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return (ResponseEntity) ResponseEntity.status(HttpStatus.CONFLICT).body("LOGIN JEST JUZ ZAEJTY");
         }
     }
 
-    public ResponseEntity<Participant> updateParticipantEmail(@RequestBody Participant participant) {
+    public ResponseEntity updateParticipantEmail(@RequestBody Participant participant) {
         Optional<Participant> ParticipantData = participantRepository.findById(participant.getId());
         if (ParticipantData.isPresent()) {
             Participant _participant = ParticipantData.get();
@@ -46,6 +45,7 @@ public class ParticipantService {
             return new ResponseEntity<>(participantRepository.save(_participant), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         }
     }
 
