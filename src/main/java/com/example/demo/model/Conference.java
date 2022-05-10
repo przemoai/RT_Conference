@@ -17,11 +17,6 @@ public class Conference {
     private LocalDateTime start;
     private LocalDateTime finish;
 
-    @ManyToMany
-    @JoinTable(
-        name = "Conference_topics",
-        joinColumns = @JoinColumn(name = "conference_id"),
-        inverseJoinColumns = @JoinColumn(name = "topic_id")
-    )
-    Set<Topic> topics;
+    @OneToMany(mappedBy = "conference")
+    Set<ConferenceTopics> topics;
 }

@@ -9,3 +9,5 @@ INSERT INTO TOPIC (id,title) VALUES (3,'JS');
 INSERT INTO CONFERENCE_TOPICS(id,conference_id,topic_id)VALUES(1,1,1);
 INSERT INTO CONFERENCE_TOPICS(id,conference_id,topic_id)VALUES(2,1,2);
 INSERT INTO CONFERENCE_TOPICS(id,conference_id,topic_id)VALUES(3,1,3);
+
+INSERT INTO CONFERENCE_TOPICS(id,conference_id,topic_id)VALUES(4,2,1);

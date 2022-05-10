@@ -2,10 +2,7 @@ package com.example.demo.model;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -15,7 +12,6 @@ public class Topic {
     private Long id;
     private String title;
 
-    @ManyToMany
-
-    Set<Conference> conferences;
+    @OneToMany(mappedBy = "topic")
+    Set<ConferenceTopics> topics;
 }
