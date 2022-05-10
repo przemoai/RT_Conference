@@ -23,15 +23,20 @@ public class ParticipantService {
 
     public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
 
-        try {
-            Participant _participant = participantRepository
-                    .save(new Participant(participant.getId(),participant.getName(), participant.getEmail()));
-            return new ResponseEntity<>(_participant, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+       boolean exists = participantRepository.findByLogin(participant.getLogin()).isEmpty();
+        if(exists) {
+            try {
+                Participant _participant = participantRepository
+                        .save(new Participant(participant.getLogin(), participant.getEmail()));
+                return new ResponseEntity<>(_participant, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+            }
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
 
     public ResponseEntity<Participant> updateParticipantEmail(@RequestBody Participant participant) {
         Optional<Participant> ParticipantData = participantRepository.findById(participant.getId());
