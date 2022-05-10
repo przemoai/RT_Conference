@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Conference;
+import com.example.demo.model.ThemeConference;
 import com.example.demo.service.ConferenceService;
+import com.example.demo.service.ThemeConferenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,17 +13,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ConferenceController {
+public class ThemeConferenceController {
 
-    private final ConferenceService conferenceService;
+    private final ThemeConferenceService themeConferenceService;
 
-    @GetMapping("/conference")
-    public List<Conference> getConference(){
-        return conferenceService.getConferences();
+    @GetMapping("/conference/detail")
+    public List<ThemeConference> getConference(){
+        return themeConferenceService.getConferences();
     }
 
-    @GetMapping("/conference/{id}")
-    public Conference getConference(@PathVariable Long id){
-        return conferenceService.getConference(id);
-    }
 }
