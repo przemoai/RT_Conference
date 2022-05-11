@@ -24,4 +24,6 @@ public class ConferenceController {
     public Conference getConference(@PathVariable Long id){
         return conferenceService.getConference(id);
     }
+
+
 }

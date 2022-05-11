@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -28,8 +30,13 @@ public class ThemeConference {
             joinColumns = @JoinColumn(name = "themeConference_id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id")
     )
-    private Set<Participant> participants = new HashSet<>();
+    Set<Participant> participants = new HashSet<>();
 
+    public Set<Participant> addParticipant(Set<Participant>participants, Participant participant){
+        participants.add(participant);
+        setParticipants(participants);
+        return participants;
+    }
 
 
 }

@@ -1,19 +1,18 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Participant {
+@Embeddable
+@Data
+public class Participant implements Serializable {
+    private static final long serialVersionUID = -5158940195648784880L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

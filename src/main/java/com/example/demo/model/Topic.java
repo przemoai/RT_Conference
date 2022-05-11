@@ -26,5 +26,5 @@ public class Topic {
 //    private Set<Participant> participants = new HashSet<>();
 //
 //    @OneToMany(mappedBy = "topic")
-//    Set<ThemeConference> details;
+//    Set<ThemeConference> themeConferences;
 }
