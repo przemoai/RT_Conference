@@ -19,19 +19,12 @@ public class ThemeConferenceController {
 
     private final ThemeConferenceService themeConferenceService;
 
-    @GetMapping("/conference/detail")
-    public List<ThemeConference> getConference(){
-        return themeConferenceService.getConferences();
-    }
+//    @GetMapping("/conference/detail")
+//    public List<ThemeConference> getConference(){
+//        return themeConferenceService.getConferences();
+//    }
 
-    @PostMapping("/conference/{id}/participant/{name}")
-    public ResponseEntity<Participant> addParticipant(@PathVariable Map<String,String> pathVarsMap){
-        Long id = Long.valueOf(pathVarsMap.get("id"));
-        String name = pathVarsMap.get("name");
 
-        themeConferenceService.addParticipant(id,name);
-        return null;
-    }
 
 
 }

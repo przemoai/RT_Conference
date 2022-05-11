@@ -24,19 +24,6 @@ public class ThemeConference {
     @JoinColumn(name = "topic_id")
     Topic topic;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "Theme_Conference_Participants",
-            joinColumns = @JoinColumn(name = "themeConference_id"),
-            inverseJoinColumns = @JoinColumn(name = "participant_id")
-    )
-    Set<Participant> participants = new HashSet<>();
-
-    public Set<Participant> addParticipant(Set<Participant>participants, Participant participant){
-        participants.add(participant);
-        setParticipants(participants);
-        return participants;
-    }
 
 
 }
