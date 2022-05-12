@@ -34,7 +34,7 @@ public class ThemeConference {
     }
     public void removeParticipant(Participant participant){
         this.participants.remove(participant);
-        participant.getConferences().remove(this);
+
     }
 
 

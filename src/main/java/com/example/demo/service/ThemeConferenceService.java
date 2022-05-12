@@ -22,25 +22,51 @@ public class ThemeConferenceService {
     public List<ThemeConference> getConferences() {
         return themeConferenceRepository.findAll();
     }
-
-
-    public ResponseEntity<Participant> addParticipant(Map<String, String> params) {
+    public ResponseEntity addParticipantToConference(Map<String, String> params) {
         Long themeConferenceId = Long.valueOf(params.get("id"));
         String participantLogin = params.get("login");
         Participant participant = participantRepository.getByLogin(participantLogin);
         ThemeConference themeConference = themeConferenceRepository.getById(themeConferenceId);
+
 
         try {
             if (isAddingParticipantToConferenceAllowed(themeConference)) {
                 themeConference.addParticipant(participant);
                 themeConferenceRepository.save(themeConference);
             } else {
-                System.out.println("MAX SLOTS");
+                //return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("LIST OF PARTICIPANTS IS FULL, TRY ANOTHER CONFERENCE");
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e);
             }
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("PARTICIPANT ADDED SUCCESSFULLY");
+    }
+
+    public ResponseEntity removeParticipantFromConference(Map<String, String> params){
+        Long themeConferenceId = Long.valueOf(params.get("id"));
+        String participantLogin = params.get("login");
+        Participant participant = participantRepository.getByLogin(participantLogin);
+        ThemeConference themeConference = themeConferenceRepository.getById(themeConferenceId);
+
+
+        if(isParticipantSignedToConference(participant, themeConference)){
+            try{
+                themeConference.removeParticipant(participant);
+                themeConferenceRepository.save(themeConference);
+                return ResponseEntity.status(HttpStatus.OK).body("PARTICIPANT REMOVED SUCCESSFULLY");
+            }catch (Exception e){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e);
+            }
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("PARTICIPANT IS NOT SIGNED TO THIS CONFERENCE");
+        }
+
+
+    }
+
+    private boolean isParticipantSignedToConference(Participant participant, ThemeConference themeConference) {
+        return themeConference.getParticipants().contains(participant);
     }
 
     private boolean isAddingParticipantToConferenceAllowed(ThemeConference themeConference) {

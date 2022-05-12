@@ -5,10 +5,7 @@ import com.example.demo.model.ThemeConference;
 import com.example.demo.service.ThemeConferenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,8 +28,13 @@ public class ThemeConferenceController {
 
     @PostMapping("/conference/{id}/participant/{login}")
     public ResponseEntity<Participant> addParticipant(@PathVariable Map<String,String> params){
-        return themeConferenceService.addParticipant(params);
+        return themeConferenceService.addParticipantToConference(params);
     }
+    @DeleteMapping("/conference/{id}/participant/{login}")
+    public ResponseEntity<Participant> removeParticipant(@PathVariable Map<String,String> params){
+        return themeConferenceService.removeParticipantFromConference(params);
+    }
+
 
 
 
