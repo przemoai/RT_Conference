@@ -15,6 +15,9 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.demo.utils.ThemeConferenceUtility.isAddingParticipantToConferenceAllowed;
+import static com.example.demo.utils.ThemeConferenceUtility.isParticipantSignedToConference;
+
 @Service
 @RequiredArgsConstructor
 public class ThemeConferenceService {
@@ -79,16 +82,6 @@ public class ThemeConferenceService {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e);
         }
-    }
-
-    private boolean isParticipantSignedToConference(Participant participant, ThemeConference themeConference) {
-        return themeConference.getParticipants().contains(participant);
-    }
-
-    private boolean isAddingParticipantToConferenceAllowed(ThemeConference themeConference) {
-        int numberOfParticipants = themeConference.getParticipants().size();
-        int allowedNumberOfParticipants = 5;
-        return numberOfParticipants < allowedNumberOfParticipants;
     }
 
     public ThemeConference getConference(Long id) {

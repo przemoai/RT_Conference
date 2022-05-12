@@ -1,5 +1,7 @@
 package com.example.demo.utils;
 
+import com.example.demo.model.Participant;
+import com.example.demo.model.ThemeConference;
 import com.example.demo.service.ThemeConferenceService;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +31,15 @@ public class ThemeConferenceUtility {
         return notificationContent;
     }
 
-    public static String generateNotificationContent(String participantLogin, String conferenceName, String conferenceTopic, LocalDateTime conferenceStartTime) {
-        return notificationContent(participantLogin, conferenceName, conferenceTopic, conferenceStartTime);
+    public static boolean isParticipantSignedToConference(Participant participant, ThemeConference themeConference) {
+        return themeConference.getParticipants().contains(participant);
     }
+
+    public static boolean isAddingParticipantToConferenceAllowed(ThemeConference themeConference) {
+        int numberOfParticipants = themeConference.getParticipants().size();
+        int allowedNumberOfParticipants = 5;
+        return numberOfParticipants < allowedNumberOfParticipants;
+    }
+
+
 }

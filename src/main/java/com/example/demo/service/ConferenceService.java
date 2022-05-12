@@ -14,8 +14,7 @@ public class ConferenceService {
 
     private final ConferenceRepository conferenceRepository;
 
-    public List<Conference> getConferences(){
-        System.out.println(conferenceRepository.findAll());
+    public List<Conference> getConferences() {
         return conferenceRepository.findAll();
     }
 

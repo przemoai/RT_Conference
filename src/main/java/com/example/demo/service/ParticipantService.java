@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,6 @@ public class ParticipantService {
     }
 
     public ResponseEntity addParticipant(@RequestBody Participant participant) {
-
 
         if (!isParticipantExist(participant)) {
             try {
@@ -57,7 +55,7 @@ public class ParticipantService {
     @NotNull
     private Participant getParticipant(Participant participant) {
         Optional<Participant> participantData = participantRepository.findById(participant.getId());
-        Participant updatedParticipant=participantData.get();
+        Participant updatedParticipant = participantData.get();
         updatedParticipant.setEmail(participant.getEmail());
         return updatedParticipant;
     }
