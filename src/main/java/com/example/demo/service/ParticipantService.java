@@ -21,28 +21,34 @@ public class ParticipantService {
         return participantRepository.findAll();
     }
 
-    public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
+    public ResponseEntity addParticipant(@RequestBody Participant participant) {
 
-        boolean exists = participantRepository.findByLogin(participant.getLogin()).isEmpty();
-        if (exists) {
+
+        if (isParticipantExist(participant)) {
             try {
-                Participant _participant = participantRepository
+                Participant newParticipant = participantRepository
                         .save(new Participant(participant.getLogin(), participant.getEmail()));
-                return new ResponseEntity<>(_participant, HttpStatus.CREATED);
+                return new ResponseEntity<>(newParticipant, HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } else {
-            return (ResponseEntity) ResponseEntity.status(HttpStatus.CONFLICT).body("LOGIN JEST JUZ ZAEJTY");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("LOGIN JEST JUZ ZAJETY");
         }
+    }
+
+    private boolean isParticipantExist(Participant participant) {
+        boolean exists = participantRepository.findByLogin(participant.getLogin()).isEmpty();
+        return exists;
     }
 
     public ResponseEntity updateParticipantEmail(@RequestBody Participant participant) {
         Optional<Participant> ParticipantData = participantRepository.findById(participant.getId());
+
         if (ParticipantData.isPresent()) {
-            Participant _participant = ParticipantData.get();
-            _participant.setEmail(participant.getEmail());
-            return new ResponseEntity<>(participantRepository.save(_participant), HttpStatus.OK);
+            Participant newParticipant = ParticipantData.get();
+            newParticipant.setEmail(participant.getEmail());
+            return new ResponseEntity<>(participantRepository.save(newParticipant), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
