@@ -76,6 +76,15 @@
 | :-------- | :------- | :-------------------------------- |
 |       | `List<Participant>` | Return list of participants |
 
+Example Body Request
+```bash
+{
+  "login":"test_login",
+  "email":"test@mail.test"
+}
+```
+
+
 #### Add Participant
 ```http
   POST /participant/{id}
