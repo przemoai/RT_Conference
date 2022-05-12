@@ -1,9 +1,15 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -19,10 +25,15 @@ public class Participant implements Serializable {
     private String login;
     private String email;
 
-
+    @ManyToMany(cascade = { CascadeType.ALL })
+    private Set<ThemeConference> conferences = new HashSet<>();
 
     public Participant(String login, String email) {
         this.login = login;
         this.email = email;
+    }
+
+    public void addConference(ThemeConference conference) {
+        this.conferences.add(conference);
     }
 }

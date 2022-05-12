@@ -1,5 +1,9 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +28,21 @@ public class ThemeConference {
     @JoinColumn(name = "topic_id")
     Topic topic;
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "conference_participants",
+            joinColumns = @JoinColumn(name = "theme_conference_id"),
+            inverseJoinColumns = @JoinColumn(name = "participant_id")
+    )
+    private Set<Participant> participants = new HashSet<>();
+
+    public void addParticipant(Participant participant) {
+        this.participants.add(participant);
+    }
+    public void removeParticipant(Participant participant){
+        this.participants.remove(participant);
+        participant.getConferences().remove(this);
+    }
 
 
 }

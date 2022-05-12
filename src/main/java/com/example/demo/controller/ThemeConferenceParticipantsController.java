@@ -22,10 +22,10 @@ public class ThemeConferenceParticipantsController {
         return themeConferenceParticipantsService.getConferencesDetails();
     }
 
-    @PostMapping("/conference/{id}/participant/{login}")
-    public ResponseEntity<Participant> addParticipant(@PathVariable Map<String,String> params){
-        return themeConferenceParticipantsService.addParticipant(params);
-    }
+//    @PostMapping("/conference/{id}/participant/{login}")
+//    public ResponseEntity<Participant> addParticipant(@PathVariable Map<String,String> params){
+//        return themeConferenceParticipantsService.addParticipant(params);
+//    }
 
 
 }
