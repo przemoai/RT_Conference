@@ -23,7 +23,7 @@
 |   `id`    | `ThemeConference` | Return conference with details by ID |
 
 
-#### Show conference with details about topics and participants by ID
+#### Add participant to conference
 ```http
   POST /conference/{id}/participant/{login}
 ```
@@ -32,6 +32,10 @@
 | :-------- | :------- | :-------------------------------- |
 |   `id, login`    | `ResponseEntity` | Sign participant to conference by theme conference ID and participant unique Login|
 
+Example Path Variable
+```bash
+http://localhost:8080/conference/1/participant/test_login1
+```
 
 #### Show conference with details about topics and participants by ID
 ```http
@@ -110,6 +114,7 @@ Example Body Request
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 |       | `ResponseEntity` | Change participant email |
+
 Example Body Request
 ```bash
 {
