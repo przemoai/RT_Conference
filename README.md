@@ -1,4 +1,4 @@
-## API Reference 
+# API Reference 
 
 ## Show conference with details about topics and participants
 ```http
