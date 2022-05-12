@@ -1,6 +1,6 @@
 ## API Reference 
 
-#### Show conference with details about topics and participants
+## Show conference with details about topics and participants
 ```http
   GET /conference/details
 ```
@@ -13,7 +13,7 @@
 
 
 
-#### Show conference with details about topics and participants by ID
+## Show conference with details about topics and participants by ID
 ```http
   GET /conference/details/{id}
 ```
@@ -23,7 +23,7 @@
 |   `id`    | `ThemeConference` | Return conference with details by ID |
 
 
-#### Add participant to conference
+## Add participant to conference
 ```http
   POST /conference/{id}/participant/{login}
 ```
@@ -37,7 +37,7 @@ Example Path Variable
 http://localhost:8080/conference/1/participant/test_login1
 ```
 
-#### Show conference with details about topics and participants by ID
+## Show conference with details about topics and participants by ID
 ```http
   DEL /conference/{id}/participant/{login}
 ```
@@ -46,9 +46,12 @@ http://localhost:8080/conference/1/participant/test_login1
 | :-------- | :------- | :-------------------------------- |
 |   `id, login`    | `ResponseEntity` | Remove participant from conference by theme conference ID and participant unique Login|
 
+Example Path Variable
+```bash
+http://localhost:8080/conference/1/participant/test_login4
+```
 
-
-#### Get all Conferences
+## Get all Conferences
 
 ```http
   GET /conference
@@ -58,7 +61,7 @@ http://localhost:8080/conference/1/participant/test_login1
 | :-------- | :------- | :------------------------- |
 |           | `List<Conference>` | Return list of conferences Time Schedule |
 
-#### Get Conference
+## Get Conference
 
 ```http
   GET /conference/{id}
@@ -68,7 +71,7 @@ http://localhost:8080/conference/1/participant/test_login1
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `List<Conference>` | Return conference by ID |
 
-#### Get Participants
+## Get Participants
 
 
 
@@ -89,7 +92,7 @@ Example Body Request
 ```
 
 
-#### Add Participant
+## Add Participant
 ```http
   POST /participant/{id}
 ```
@@ -106,7 +109,7 @@ Example Body Request
 }
 ```
 
-#### Edit Participant
+## Edit Participant
 ```http
   PUT /participant/
 ```
