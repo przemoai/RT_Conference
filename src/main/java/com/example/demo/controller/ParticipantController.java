@@ -20,12 +20,12 @@ public class ParticipantController {
     }
 
     @PostMapping("/participant")
-    public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
+    public ResponseEntity addParticipant(@RequestBody Participant participant) {
         return participantService.addParticipant(participant);
     }
 
     @PutMapping("/participant")
-    public ResponseEntity<Participant> updateParticipantEmail(@RequestBody Participant participant) {
+    public ResponseEntity updateParticipantEmail(@RequestBody Participant participant) {
         return participantService.updateParticipantEmail(participant);
     }
 

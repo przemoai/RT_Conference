@@ -28,7 +28,6 @@ public class ThemeConferenceController {
     public ResponseEntity addParticipant(@PathVariable Map<String, String> params) {
         return themeConferenceService.addParticipantToConference(params);
     }
-
     @DeleteMapping("/conference/{id}/participant/{login}")
     public ResponseEntity removeParticipant(@PathVariable Map<String, String> params) {
         return themeConferenceService.removeParticipantFromConference(params);
