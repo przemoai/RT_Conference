@@ -93,14 +93,28 @@ Example Body Request
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 |       | `ResponseEntity` | Add new participant |
+Example Body Request
+```
+{
+    "login":"newTestParticipant",
+    "email":"newTest@mail.test"
+}
+```
 
 #### Edit Participant
 ```http
-  PUT /participant/{id}
+  PUT /participant/
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 |       | `ResponseEntity` | Change participant email |
-
+Example Body Request
+```bash
+{
+    "id":1,
+    "login":"test_login1",
+    "email":"new@mail.test"
+}
+```
 
