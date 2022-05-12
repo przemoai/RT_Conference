@@ -93,6 +93,7 @@ Example Body Request
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 |       | `ResponseEntity` | Add new participant |
+
 Example Body Request
 ```bash
 {
