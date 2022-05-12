@@ -5,15 +5,13 @@ import com.example.demo.model.Participant;
 import com.example.demo.model.ThemeConference;
 import com.example.demo.repository.ParticipantRepository;
 import com.example.demo.repository.ThemeConferenceRepository;
+import com.example.demo.utils.ThemeConferenceUtility;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +20,7 @@ import java.util.Map;
 public class ThemeConferenceService {
     private final ThemeConferenceRepository themeConferenceRepository;
     private final ParticipantRepository participantRepository;
+    private final ThemeConferenceUtility themeConferenceUtility = new ThemeConferenceUtility(this);
 
     public List<ThemeConference> getConferences() {
         return themeConferenceRepository.findAll();
@@ -49,27 +48,13 @@ public class ThemeConferenceService {
 
     }
 
-    String notificationContent(String participantLogin, String conferenceName, String conferenceTopic, LocalDateTime conferenceStartTime) {
-        Timestamp timestamp = getTimestamp();
-        String notificationContent =
-                "====\nSENT " + timestamp + " TO " + participantLogin +
-                        "\nSUCCESSFULLY SIGNED TO " + conferenceName
-                        + " CONFERENCE ABOUT " + conferenceTopic
-                        + " STARTS AT " + conferenceStartTime;
-        return notificationContent;
-    }
-    @NotNull
-    private Timestamp getTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return timestamp;
-    }
 
     public void sendSigningNotification(ThemeConference themeConference, Participant participant) {
         String pathToFile = "notifications.txt";
         try (FileWriter fw = new FileWriter(pathToFile, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(notificationContent(
+            out.println(themeConferenceUtility.notificationContent(
                     participant.getLogin(),
                     themeConference.getConference().getTitle(),
                     themeConference.getTopic().getTitle(),
