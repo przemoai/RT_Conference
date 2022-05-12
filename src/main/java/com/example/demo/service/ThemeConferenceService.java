@@ -20,7 +20,6 @@ import java.util.Map;
 public class ThemeConferenceService {
     private final ThemeConferenceRepository themeConferenceRepository;
     private final ParticipantRepository participantRepository;
-    private final ThemeConferenceUtility themeConferenceUtility = new ThemeConferenceUtility(this);
 
     public List<ThemeConference> getConferences() {
         return themeConferenceRepository.findAll();
@@ -32,13 +31,16 @@ public class ThemeConferenceService {
         Participant participant = participantRepository.getByLogin(participantLogin);
         ThemeConference themeConference = themeConferenceRepository.getById(themeConferenceId);
 
-
         try {
             if (isAddingParticipantToConferenceAllowed(themeConference)) {
-                themeConference.addParticipant(participant);
-                themeConferenceRepository.save(themeConference);
-                sendSigningNotification(themeConference, participant);
-                return ResponseEntity.status(HttpStatus.OK).body("PARTICIPANT ADDED SUCCESSFULLY");
+                if (!isParticipantSignedToConference(participant, themeConference)) {
+                    themeConference.addParticipant(participant);
+                    themeConferenceRepository.save(themeConference);
+                    sendSigningNotification(themeConference, participant);
+                    return ResponseEntity.status(HttpStatus.OK).body("PARTICIPANT ADDED SUCCESSFULLY");
+                } else {
+                    return ResponseEntity.status(HttpStatus.OK).body("PARTICIPANT IS ALREADY SIGNED TO CONFERENCE");
+                }
             } else {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("LIST OF PARTICIPANTS IS FULL, TRY ANOTHER CONFERENCE");
             }
@@ -51,17 +53,10 @@ public class ThemeConferenceService {
 
     public void sendSigningNotification(ThemeConference themeConference, Participant participant) {
         String pathToFile = "notifications.txt";
-        try (FileWriter fw = new FileWriter(pathToFile, true);
-             BufferedWriter bw = new BufferedWriter(fw);
-             PrintWriter out = new PrintWriter(bw)) {
-            out.println(themeConferenceUtility.notificationContent(
-                    participant.getLogin(),
-                    themeConference.getConference().getTitle(),
-                    themeConference.getTopic().getTitle(),
-                    themeConference.getConference().getStart()
-            ));
+        try (FileWriter fw = new FileWriter(pathToFile, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
+            out.println(ThemeConferenceUtility.notificationContent(participant.getLogin(), themeConference.getConference().getTitle(), themeConference.getTopic().getTitle(), themeConference.getConference().getStart()));
         } catch (IOException e) {
-            //exception handling left as an exercise for the reader
+            System.out.println(e);
         }
     }
 
@@ -84,8 +79,6 @@ public class ThemeConferenceService {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e);
         }
-
-
     }
 
     private boolean isParticipantSignedToConference(Participant participant, ThemeConference themeConference) {
@@ -101,4 +94,5 @@ public class ThemeConferenceService {
     public ThemeConference getConference(Long id) {
         return themeConferenceRepository.findById(id).orElseThrow(NotFoundException::new);
     }
+
 }

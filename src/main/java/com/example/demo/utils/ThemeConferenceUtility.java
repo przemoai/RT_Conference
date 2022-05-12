@@ -24,8 +24,8 @@ public class ThemeConferenceUtility {
         String notificationContent =
                 "====\nSENT " + timestamp + " TO " + participantLogin +
                         "\nSUCCESSFULLY SIGNED TO " + conferenceName
-                        + " CONFERENCE ABOUT " + conferenceTopic
-                        + " STARTS AT " + conferenceStartTime;
+                        + " ABOUT " + conferenceTopic
+                        + ". STARTS AT " + conferenceStartTime;
         return notificationContent;
     }
 

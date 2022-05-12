@@ -34,7 +34,7 @@ public class ParticipantService {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("LOGIN JEST JUZ ZAJETY");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("LOGIN IS IN USE");
         }
     }
 
