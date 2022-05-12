@@ -94,7 +94,7 @@ Example Body Request
 | :-------- | :------- | :-------------------------------- |
 |       | `ResponseEntity` | Add new participant |
 Example Body Request
-```
+```bash
 {
     "login":"newTestParticipant",
     "email":"newTest@mail.test"
