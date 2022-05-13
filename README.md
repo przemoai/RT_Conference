@@ -1,5 +1,37 @@
-# API Reference 
+# How app works
 
+To list available conferences with topics go to 
+```http 
+GET /conference/details
+```
+
+To join to conference we have to first sign in as a Participant
+```http 
+POST /participant
+with example request body
+{
+    "login": "test_login",
+    "email": "test@email.test"
+}
+```
+Then we can sign up to theme conference by calling 
+```http
+POST /conference/1/participant/test_login
+```
+By following route we sign up to Theme Conference with ID 1 and topic "JS"
+
+If we want to resign from theme conference we have to call conference ID and our Login used to signing up
+```http 
+DEL /conference/1/participant/test_login
+```
+
+
+
+
+# API Reference 
+RT_CONFERENCE.postman_collection.json 
+
+File contains exported postman rest api tests
 ## Show conference with details about topics and participants
 ```http
   GET /conference/details
