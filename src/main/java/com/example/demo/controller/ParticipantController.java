@@ -23,7 +23,6 @@ public class ParticipantController {
     public ResponseEntity addParticipant(@RequestBody Participant participant) {
         return participantService.addParticipant(participant);
     }
-
     @PutMapping("/participant")
     public ResponseEntity updateParticipantEmail(@RequestBody Participant participant) {
         return participantService.updateParticipantEmail(participant);

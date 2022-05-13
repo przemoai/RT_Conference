@@ -16,7 +16,6 @@ import java.util.Optional;
 public class ParticipantService {
 
     private final ParticipantRepository participantRepository;
-
     public List<Participant> getParticipants() {
         return participantRepository.findAll();
     }
@@ -37,9 +36,11 @@ public class ParticipantService {
     }
 
     private boolean isParticipantExist(@NotNull Participant participant) {
-        boolean exists = !participantRepository.findByLogin(participant.getLogin()).isEmpty();
+
+        boolean exists = participantRepository.findByLoginIgnoreCase(participant.getLogin()) != null;
         return exists;
     }
+
 
     public ResponseEntity updateParticipantEmail(@RequestBody Participant participant) {
 
